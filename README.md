@@ -1,10 +1,11 @@
 # jsoupLink
 
 Created by Calle Ekdahl.
+(Minor adaptations to the WL 12.3 paclet conventions by Felix Kasza fk@mvps.org.)
 
 GPL-2.0+ licensed.
 
-Current version: 1.0
+Current version: 1.0.1
 
 ## Introduction
 
@@ -18,7 +19,7 @@ The most common application for jsoupLink is to extract information from website
 `jsoupLink` is distributed in the form of a paclet. Download the latest version of the paclet from [the releases page](https://github.com/cekdahl/jsoupLink/releases) and install it using the the `PacletManager` package (which you already have because it comes with Mathematica):
 
     Needs["PacletManager`"]
-    PacletInstall["~/Downloads/jSoupLink-1.0.0.paclet"]
+    PacletInstall["~/Downloads/jsoupLink-1.0.1.paclet"]
 
 Use `Needs` to load jsoupLink:
 
