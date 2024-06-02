@@ -8,7 +8,7 @@
 (* :Date: 2024-05-09                       *)
 
 (* :Package Version: 1.1                   *)
-(* :Mathematica Version: 12.1.0.0          *)
+(* :Mathematica Version: 12.3.0.0          *)
 (* :Copyright: (c) 2015-2024 Calle Ekdahl  *)
 (* :Keywords:                              *)
 (* :Discussion:                            *)
@@ -30,7 +30,7 @@ Begin["`Private`"]; (* Begin Private Context *)
 
 Needs["JLink`"];
 InstallJava[];
-AddToClassPath[FileNameJoin[{DirectoryName[$InputFileName], "Java/jsoup-1.17.2.jar"}]];
+AddToClassPath[FileNameJoin[{DirectoryName[$InputFileName], "Java"}]];
 LoadJavaClass["org.jsoup.Jsoup"];
 
 ImportExport`RegisterImport["HTMLDOM", jsoupLink`DownloadDOM];
@@ -45,7 +45,7 @@ ParseDOM[html_String, baseUri_String:""] := Module[{doc, root},
   Global`HTMLElement[root]
 ];
 
-ExportDOM[filename_, data_, opts___] := Export[filename, data["OuterHTML"], "Text",opts];
+ExportDOM[filename_, data_, opts___] := Export[filename, data["OuterHTML"], "Text", opts];
 
 icon = Import[FileNameJoin[{DirectoryName[$InputFileName], "assets/documenticon.png"}]];
 
