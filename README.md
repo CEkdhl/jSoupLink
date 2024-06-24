@@ -4,7 +4,7 @@ Created by Calle Ekdahl.
 
 GPL-2.0+ licensed.
 
-Current version: 1.0
+Current version: 1.1.0
 
 ## Introduction
 
@@ -15,9 +15,8 @@ While traditionally HTML has been worked on in Mathematica by importing it as sy
 The most common application for jsoupLink is to extract information from websites, for example table data.
 
 ## Installing jsoupLink
-`jsoupLink` is distributed in the form of a paclet. Download the latest version of the paclet from [the releases page](https://github.com/cekdahl/jsoupLink/releases) and install it using the the `PacletManager` package (which you already have because it comes with Mathematica):
+`jsoupLink` is distributed in the form of a paclet. Download the latest version of the paclet from [the releases page](https://github.com/cekdahl/jsoupLink/releases) and install it using `PacletInstall`:
 
-    Needs["PacletManager`"]
     PacletInstall["~/Downloads/jSoupLink-1.0.0.paclet"]
 
 Use `Needs` to load jsoupLink:
@@ -199,6 +198,20 @@ Return a copy of `element`, such that modifications done to the copy do not affe
  - `element["DOMTree"]`
  Display the DOM tree. Details below.
 
+## Helper functions
+
+jsonLink includes a selection of helper functions that evaluate properties on HTML element objects.
+
+- `HTMLSelect[rootElement, selector]` returns the elements that match the CSS selector.
+- `HTMLSelect[selector]` represents an operator form of HTMLSelect that can be applied to an element.
+- `HTMLAttribute[element, attribute]` gets the given attribute from the element.
+- `HTMLAttribute[attribute]` represents an operator form of HTMLAttribute that can be applied to an element.
+- `HTMLAttributes[element]` returns the attributes of the element in the form of an association.
+- `HTMLParent[element]` returns the parent of the element.
+- `HTMLChildren[element]` returns the list of children of the element.
+- `HTMLSiblings[element]` returns the list of siblings of the element.
+- `HTMLOwnText[element]` returns the text directly under the element, i.e. not nested in a child. The own text of `<h1>Hello <b>world</b></h1>` is `Hello`.
+- `HTMLAllText[element]` returns all text under the element. Applied to `<h1>Hello <b>world</b></h1>` it would return `Hello world`.
 
 ## DOM Tree Interface
 `element["DOMTree"]` opens an interface to view the DOM tree with `element` as root:
@@ -210,3 +223,13 @@ Elements can be selected by clicking on them. The "copy node" button writes the 
 ## Retrieving absolute URLs
 
 If you are having problem retrieving absolute URLs from links, you may try to retrieve the `abs:href` attribute instead of the `href` attribute.
+
+## Building jsoupLink from source
+
+The jsoupLink paclet can be built from source using the `CreatePacletArchive` function:
+
+```mathematica
+CreatePacletArchive[sourceDir, destDir]
+```
+
+`sourceDir` is the directory with the `PacletInfo.wl` in it, and `destDir` is where the paclet file will be saved to.
