@@ -1,0 +1,363 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 14.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     14766,        355]
+NotebookOptionsPosition[     12740,        313]
+NotebookOutlinePosition[     13351,        332]
+CellTagsIndexPosition[     13308,        329]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Building a jsoupLink package", "Subsection",
+ CellChangeTimes->{{3.92492415690456*^9, 
+  3.924924179915997*^9}},ExpressionUUID->"ef274cca-8478-7844-b61e-\
+9345c35341de"],
+
+Cell[CellGroupData[{
+
+Cell["Project name and location, change as needed.", "Subsubsection",
+ CellFrame->{{0, 0}, {0, 2}},
+ CellFrameColor->GrayLevel[0.75],
+ CellChangeTimes->{{3.9269956565767784`*^9, 3.9269956926789417`*^9}, {
+  3.9269980423492775`*^9, 
+  3.9269980444553432`*^9}},ExpressionUUID->"46d4bf39-d151-7041-a3a9-\
+338054707c50"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"packageName", "=", "\"\<jsoupLink\>\""}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Directory", " ", "where", " ", 
+    RowBox[{"README", ".", "md"}], " ", "resides"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "The", " ", "actual", " ", "package", " ", "is", " ", "one", " ", "level",
+      " ", "below"}], ",", " ", 
+    RowBox[{"in", " ", "a", " ", "subdirectory", " ", "named", " ", 
+     RowBox[{
+      StyleBox["packageName",
+       FontSlant->"Italic"], "."}]}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"That", " ", "is", " ", "where", " ", 
+    RowBox[{"PacletInfo", ".", "wl"}], " ", "must", " ", 
+    RowBox[{"reside", "."}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"e", ".", "g", "."}], ":", " ", "projectPath"}], "=", 
+     RowBox[{"FileNameJoin", "[", 
+      RowBox[{"{", 
+       RowBox[{"\"\</code/repos/\>\"", ",", "packageName"}], "}"}], "]"}]}], 
+    ";"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"projectPath", "=", 
+    RowBox[{"NotebookDirectory", "[", "]"}]}], ";"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"directory", " ", "where", " ", 
+    RowBox[{"PacletInfo", ".", "wl"}], " ", "resides"}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"sourcePath", "=", 
+   RowBox[{"FileNameJoin", "[", 
+    RowBox[{"{", 
+     RowBox[{"projectPath", ",", "packageName"}], "}"}], "]"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.924863804018266*^9, 3.924863813176248*^9}, {
+   3.9248638553738823`*^9, 3.924863873187456*^9}, 3.9248771984387207`*^9, {
+   3.924881866088379*^9, 3.9248820143943634`*^9}, {3.9249026219945755`*^9, 
+   3.924902633463476*^9}, {3.924923404916481*^9, 3.924923413473181*^9}, {
+   3.924923600205801*^9, 3.9249236966196003`*^9}, 3.924923765268717*^9, {
+   3.9269635057677975`*^9, 3.926963529939741*^9}, {3.9269727772842464`*^9, 
+   3.9269728489233837`*^9}, {3.9269739345058594`*^9, 
+   3.9269739499255276`*^9}, {3.9269739832529163`*^9, 
+   3.9269739832529163`*^9}, {3.9269750194495506`*^9, 
+   3.9269750194653053`*^9}, {3.9269980827490406`*^9, 
+   3.9269980894407864`*^9}, {3.926998124054327*^9, 
+   3.926998124228718*^9}},ExpressionUUID->"10eeff5e-e3f9-7c4c-9acb-\
+15e1cee0f8d1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Build the paclet file", "Subsubsection",
+ CellFrame->{{0, 0}, {0, 2}},
+ CellFrameColor->GrayLevel[0.75],
+ CellChangeTimes->{{3.926955710546732*^9, 3.926955719005228*^9}, {
+   3.926956985331217*^9, 3.926957018772585*^9}, {3.926957099594326*^9, 
+   3.9269571365276833`*^9}, {3.926957171116347*^9, 3.926957340961506*^9}, {
+   3.926957460609585*^9, 3.926957468990956*^9}, {3.926962994055132*^9, 
+   3.926963015248506*^9}, 
+   3.926995711267082*^9},ExpressionUUID->"4d303ca9-1e76-e64b-8f41-\
+83e8cee5e901"],
+
+Cell[TextData[{
+ "At this point, only the ",
+ Cell[BoxData[
+  FormBox["sourcePath", TraditionalForm]],ExpressionUUID->
+  "a9c0dc64-4eda-8448-a6d0-f29eedd602c0"],
+ " is required.\[LineSeparator]For the build directory, we accept the default \
+of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"FileNameJoin", "[", 
+    RowBox[{"{", 
+     RowBox[{"sourcePath", ",", "\"\<build\>\""}], "}"}], "]"}], 
+   TraditionalForm]],ExpressionUUID->"2b41e739-fd62-5d44-913b-904aa758d45d"],
+ ". We do this for both the paclet build itself and for the documentation \
+build.\[LineSeparator]For the paclet archive file, we also accept the \
+default: It will be a sibling to the ",
+ Cell[BoxData[
+  FormBox["sourcePath", TraditionalForm]],ExpressionUUID->
+  "0f7f691b-a4b8-fc42-b458-6b006a807e75"],
+ ", i.\:202fe., ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"FileNameJoin", "[", 
+     RowBox[{"{", 
+      RowBox[{
+      "sourcePath", ",", "\"\<..\>\"", ",", "\"\<<archive file name>\>\""}], 
+      "}"}], "]"}], "."}], TraditionalForm]],ExpressionUUID->
+  "106aa67a-9658-fa40-b7cc-3dd621358b99"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"CreatePacletArchive", "[", "]"}], TraditionalForm]],
+  ExpressionUUID->"5aef7973-8c46-8e42-808f-83f1adce4078"],
+ " returns the full path to the generated archive file."
+}], "Text",
+ CellChangeTimes->{{3.926955710546732*^9, 3.926955719005228*^9}, {
+  3.926956985331217*^9, 3.926957018772585*^9}, {3.926957099594326*^9, 
+  3.9269571365276833`*^9}, {3.926957171116347*^9, 3.926957340961506*^9}, {
+  3.926957460609585*^9, 3.926957468990956*^9}, {3.926962994055132*^9, 
+  3.926963015248506*^9}},ExpressionUUID->"ba1a6686-62ba-9f43-b092-\
+50d5d9a6d306"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<PacletTools`\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"On", "[", "Assert", "]"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Echo", "[", 
+    RowBox[{"sourcePath", ",", "\"\<Building paclet from:\>\""}], "]"}], 
+   ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"pacletDocumentationBuildResult", "=", 
+   RowBox[{"PacletDocumentationBuild", "[", 
+    RowBox[{"sourcePath", ",", 
+     RowBox[{"OverwriteTarget", "->", "True"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Assert", "[", 
+    RowBox[{
+     RowBox[{"Head", "[", "pacletDocumentationBuildResult", "]"}], "==", 
+     "Success"}], "]"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"pacletBuildResult", "=", 
+   RowBox[{"PacletBuild", "[", "sourcePath", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Echo", "[", 
+   RowBox[{
+    RowBox[{"pacletBuildResult", "[", "\"\<PacletArchive\>\"", "]"}], ",", 
+    "\"\<Paclet file (without externals):\>\""}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Assert", "[", 
+    RowBox[{
+     RowBox[{"Head", "[", "pacletBuildResult", "]"}], "==", "Success"}], 
+    "]"}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"pacletFullPath", "=", 
+   RowBox[{"CreatePacletArchive", "[", "sourcePath", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Echo", "[", 
+   RowBox[{"pacletFullPath", ",", "\"\<Finished paclet archive file:\>\""}], 
+   "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.924863804018266*^9, 3.924863813176248*^9}, {
+   3.9248638553738823`*^9, 3.924863873187456*^9}, 3.9248771984387207`*^9, {
+   3.924881866088379*^9, 3.9248820143943634`*^9}, 3.9249233095352993`*^9, {
+   3.924923743025814*^9, 3.92492374327974*^9}, 3.926955872633449*^9, {
+   3.926956271662607*^9, 3.9269562761374435`*^9}, {3.9269563297129493`*^9, 
+   3.926956356128195*^9}, {3.926956393515634*^9, 3.9269563939346333`*^9}, {
+   3.926956428891708*^9, 3.926956436421629*^9}, {3.9269565175555916`*^9, 
+   3.926956518280039*^9}, {3.926963230357851*^9, 3.92696327858078*^9}, {
+   3.9269633355577774`*^9, 3.926963348921459*^9}, {3.9269634035572805`*^9, 
+   3.9269634575553017`*^9}, {3.926965580566002*^9, 3.926965582806509*^9}, 
+   3.926972740967005*^9, {3.9269736595603485`*^9, 3.926973662057459*^9}, {
+   3.9269738070077972`*^9, 3.926973852708761*^9}, {3.9269957454844894`*^9, 
+   3.926995780114441*^9}, {3.926995812798233*^9, 3.9269958384692726`*^9}, {
+   3.9269958955368977`*^9, 3.9269959092285385`*^9}, {3.9269960035143013`*^9, 
+   3.926996008042698*^9}},ExpressionUUID->"e7b210d3-8a46-b842-adeb-\
+995fdf0bb65c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Unpack and install  the  paclet into the Mathematica user files\
+\>", "Subsubsection",
+ CellFrame->{{0, 0}, {0, 2}},
+ CellFrameColor->GrayLevel[0.75],
+ CellChangeTimes->{{3.924877224786423*^9, 3.9248772797268066`*^9}, {
+  3.924878023164623*^9, 3.924878029170492*^9}, {3.924924077929856*^9, 
+  3.924924097177786*^9}, {3.92695652277376*^9, 3.926956547678326*^9}, {
+  3.926956579072588*^9, 
+  3.9269566020358925`*^9}},ExpressionUUID->"aab7245a-30f3-6645-9593-\
+5345cf7c2fb5"],
+
+Cell[BoxData[
+ RowBox[{"PacletInstall", "[", "pacletFullPath", "]"}]], "Input",
+ CellChangeTimes->{{3.924877224786423*^9, 3.9248772797268066`*^9}, {
+  3.924878023164623*^9, 3.924878029170492*^9}, {3.924924077929856*^9, 
+  3.924924097177786*^9}, {3.92695652277376*^9, 3.926956547678326*^9}, {
+  3.926956579072588*^9, 3.926956586553978*^9}},
+ CellLabel->"In[14]:=",ExpressionUUID->"92b69a21-1ac5-3045-95b3-4efc30b2f484"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Demonstrate the working paclet", "Subsubsection",
+ CellFrame->{{0, 0}, {0, 2}},
+ CellFrameColor->GrayLevel[0.75],
+ CellChangeTimes->{{3.926956649798176*^9, 
+  3.9269566574105206`*^9}},ExpressionUUID->"eb23a5ce-6a47-054b-bf76-\
+05632a596e5f"],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<jsoupLink`\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.924877224786423*^9, 3.9248772797268066`*^9}, {
+   3.924878023164623*^9, 3.924878029170492*^9}, {3.924924077929856*^9, 
+   3.924924097177786*^9}, {3.92695652277376*^9, 3.926956543588789*^9}, {
+   3.926956676650793*^9, 3.92695667735038*^9}, {3.926974360038534*^9, 
+   3.926974378104679*^9}, {3.9269745084253654`*^9, 3.9269745203846455`*^9}, {
+   3.9269745508575783`*^9, 3.926974569524044*^9}, {3.9269762489687786`*^9, 
+   3.926976277694395*^9}, {3.9269763218217278`*^9, 3.9269763722195187`*^9}, {
+   3.9269764671399097`*^9, 3.9269765045276756`*^9}, {3.9269765582186584`*^9, 
+   3.9269765649360065`*^9}, {3.92697659738118*^9, 3.9269766249697723`*^9}, 
+   3.9269767319841766`*^9},
+ CellLabel->"In[15]:=",ExpressionUUID->"0987d6a2-14d8-5742-a8f5-c8c6bd7235da"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"dom", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{"\"\<https://dst.at\>\"", ",", "\"\<HTMLDOM\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"dom", "[", "\"\<Root\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"dom", "[", "\"\<Children\>\"", "]"}]}], "Input",
+ CellChangeTimes->{{3.924877224786423*^9, 3.9248772797268066`*^9}, {
+   3.924878023164623*^9, 3.924878029170492*^9}, {3.924924077929856*^9, 
+   3.924924097177786*^9}, {3.92695652277376*^9, 3.926956543588789*^9}, {
+   3.926956676650793*^9, 3.92695667735038*^9}, {3.926974360038534*^9, 
+   3.926974378104679*^9}, {3.9269745084253654`*^9, 3.9269745203846455`*^9}, {
+   3.9269745508575783`*^9, 3.926974569524044*^9}, {3.9269762489687786`*^9, 
+   3.926976277694395*^9}, {3.9269763218217278`*^9, 3.9269763722195187`*^9}, {
+   3.9269764671399097`*^9, 3.9269765045276756`*^9}, {3.9269765582186584`*^9, 
+   3.9269765649360065`*^9}, {3.92697659738118*^9, 3.9269766249697723`*^9}, 
+   3.9269767319841766`*^9},
+ CellLabel->"In[16]:=",ExpressionUUID->"bb785951-f8e1-464a-ba14-19b3a6660cfb"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Uninstall  in  preparation  for  the  next  build", "Subsubsection",
+ CellFrame->{{0, 0}, {0, 2}},
+ CellFrameColor->GrayLevel[0.75],
+ CellChangeTimes->{{3.924864059027181*^9, 3.924864088788742*^9}, {
+  3.924924109327488*^9, 3.9249241398402233`*^9}, {3.926956932740999*^9, 
+  3.926956950810224*^9}},ExpressionUUID->"d41f7e34-66e8-9c4c-8f2a-\
+f3f406756f58"],
+
+Cell[BoxData[
+ RowBox[{"Quit", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.924864059027181*^9, 3.924864088788742*^9}, {
+  3.924924109327488*^9, 3.9249241398402233`*^9}, {3.926956932740999*^9, 
+  3.9269569464190903`*^9}},
+ CellLabel->"In[19]:=",ExpressionUUID->"ee03d144-f9f0-634c-a254-629df8d3c43b"],
+
+Cell[BoxData[
+ RowBox[{"PacletUninstall", "[", "\"\<jsoupLink\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.924864059027181*^9, 3.924864088788742*^9}, {
+  3.924924109327488*^9, 3.9249241398402233`*^9}, {3.926956932740999*^9, 
+  3.926956940598243*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"293e481d-d1e0-d943-8b70-977bdac333d0"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1005.3, 642.9},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+Magnification:>1.25 Inherited,
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
+StyleDefinitions->FrontEnd`FileName[{$RootDirectory, "C:", "Users", "fk", 
+   "AppData", "Roaming", "Mathematica", "SystemFiles", "FrontEnd", 
+   "StyleSheets"}, "fkstyle.nb", CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"8389e925-78ad-f542-a2e0-3e8ab9d1b4ac"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 175, 3, 61, "Subsection",ExpressionUUID->"ef274cca-8478-7844-b61e-9345c35341de"],
+Cell[CellGroupData[{
+Cell[780, 29, 316, 6, 59, "Subsubsection",ExpressionUUID->"46d4bf39-d151-7041-a3a9-338054707c50"],
+Cell[1099, 37, 2411, 58, 196, "Input",ExpressionUUID->"10eeff5e-e3f9-7c4c-9acb-15e1cee0f8d1"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3547, 100, 507, 9, 59, "Subsubsection",ExpressionUUID->"4d303ca9-1e76-e64b-8f41-83e8cee5e901"],
+Cell[4057, 111, 1673, 41, 123, "Text",ExpressionUUID->"ba1a6686-62ba-9f43-b092-50d5d9a6d306"],
+Cell[5733, 154, 2779, 63, 269, "Input",ExpressionUUID->"e7b210d3-8a46-b842-adeb-995fdf0bb65c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8549, 222, 482, 10, 59, "Subsubsection",ExpressionUUID->"aab7245a-30f3-6645-9593-5345cf7c2fb5"],
+Cell[9034, 234, 418, 6, 30, "Input",ExpressionUUID->"92b69a21-1ac5-3045-95b3-4efc30b2f484"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9489, 245, 247, 5, 59, "Subsubsection",ExpressionUUID->"eb23a5ce-6a47-054b-bf76-05632a596e5f"],
+Cell[9739, 252, 853, 12, 30, "Input",ExpressionUUID->"0987d6a2-14d8-5742-a8f5-c8c6bd7235da"],
+Cell[10595, 266, 1086, 18, 68, "Input",ExpressionUUID->"bb785951-f8e1-464a-ba14-19b3a6660cfb"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11718, 289, 361, 6, 59, "Subsubsection",ExpressionUUID->"d41f7e34-66e8-9c4c-8f2a-f3f406756f58"],
+Cell[12082, 297, 299, 5, 30, "Input",ExpressionUUID->"ee03d144-f9f0-634c-a254-629df8d3c43b"],
+Cell[12384, 304, 328, 5, 30, "Input",ExpressionUUID->"293e481d-d1e0-d943-8b70-977bdac333d0"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
